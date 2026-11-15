@@ -1,3 +1,4 @@
+
 import streamlit as st
 import matplotlib.pyplot as plt
 
@@ -676,8 +677,42 @@ elif st.session_state.page == "Healthy Food vs Junk Food":
         else:
 
             selected_answer = st.session_state.food_selected_answer
-
             if selected_answer == correct_answer:
                 st.success("Correct Answer!")
             else:
                 st.error("Incorrect Answer!")
+
+            st.write("Correct Answer:", correct_answer)
+
+            st.subheader("Nutritional Information")
+            st.write(information)
+
+            if question_number < 4:
+
+                if st.button("Next Question"):
+                    st.session_state.food_question += 1
+                    st.session_state.food_submitted = False
+                    st.session_state.food_selected_answer = ""
+                    st.rerun()
+
+            else:
+
+                st.success("Quiz Completed!")
+
+                st.write(
+                    "Your Score:",
+                    str(st.session_state.food_score) + " / 5"
+                )
+
+                if st.button("Restart Quiz"):
+                    st.session_state.food_question = 0
+                    st.session_state.food_score = 0
+                    st.session_state.food_submitted = False
+                    st.session_state.food_selected_answer = ""
+                    st.rerun()
+
+    else:
+        st.write("Quiz Completed!")
+        
+
+  
